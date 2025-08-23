@@ -29,8 +29,30 @@ class Solution(object):
             self.hasPathSum(root.right, remaining_sum)
         )
 
-    #def dfs_listPath(self, root):
+    def dfs_listPath(self, root):
         
+        def backtrack(current, path_sofar, result):
+
+            #print("current:", current)
+            #print("path_sofar:", path_sofar)
+            #print("result:", result)
+    
+            new_path = path_sofar + [current.val]
+
+            if current.left is None and current.right is None:
+                result.append(new_path)
+                return
+            if current.left is not None:
+                backtrack(current.left, new_path, result)
+            if current.right is not None:
+                backtrack(current.right, new_path, result)
+
+        result = []
+        backtrack(root, [], result)
+        return result            
+
+    
+
     def bfs_listPath(self, root):
         result = []
         queue = deque()
@@ -120,5 +142,10 @@ if __name__ == "__main__":
 
 
     output_list = sol.bfs_listPath(root)
-    print(output_list)
+    print("bfs:", output_list)
+
+
+    output_list = sol.dfs_listPath(root)
+    print("dfs:", output_list)
+
 
