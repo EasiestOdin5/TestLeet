@@ -76,6 +76,36 @@ class Solution(object):
 
 
 
+    def dfs_inorderTraversal(self, root):
+        if not root:
+            return []
+        return self.dfs_inorderTraversal(root.left) + [root.val] + self.dfs_inorderTraversal(root.right)
+
+
+    def dfsiter_inorderTraversal(self, root):
+
+        result = []
+        stack = []
+        current = root
+
+        while current or stack:
+
+            while current:
+                stack.append(current)
+                current = current.left
+            
+            current = stack.pop()
+            result.append(current.val)
+
+            current = current.right
+
+        return result
+
+
+
+
+
+
 def build_tree(level_order):
     if not level_order or level_order[0] is None:
         return None
@@ -147,5 +177,12 @@ if __name__ == "__main__":
 
     output_list = sol.dfs_listPath(root)
     print("dfs:", output_list)
+
+
+    output_list = sol.dfs_inorderTraversal(root)
+    print("dfs_inorderTraversal:", output_list)
+
+    output_list = sol.dfsiter_inorderTraversal(root)
+    print("dfsinter_inorderTraversal:", output_list)
 
 
