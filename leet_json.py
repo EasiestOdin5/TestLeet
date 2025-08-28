@@ -4,23 +4,6 @@ fh = open("a.json")
 data = json.load(fh)
 
 
-def flatten_json(data, parent_key='', sep='.'):
-    items = {}
-    for k, v in data.items():
-        new_key = f"{parent_key}{sep}{k}" if parent_key else k
-        if isinstance(v, dict):
-            items.update(flatten_json(v, new_key, sep=sep))
-        else:
-            items[new_key] = v
-    return items
-
-
-output = flatten_json(data)
-print(output)
-print("--------------------------")
-
-
-
 
 from collections import deque 
 
@@ -53,7 +36,7 @@ def bfs_flatten_json(data):
 
 
 
-def dfs_flatten_json(data):
+def dfsi_flatten_json(data):
 
     stack = []
     stack.append((data, ''))
@@ -67,7 +50,8 @@ def dfs_flatten_json(data):
         print("current_key:", current_key)
 
         if isinstance(current, dict):
-            for key, value in current.items():
+            #for key, value in current.items():
+            for key, value in reversed(list(current.items())):
                 new_key = f"{current_key}.{key}" if current_key else key
                 stack.append((value, new_key))
 
@@ -81,14 +65,35 @@ def dfs_flatten_json(data):
     return result
 
 
+def dfs_flatten_json(data, parent_key=''):
+    items = {}
+
+    if isinstance(data, dict):
+        for key, value in data.items():
+            new_key = f"{parent_key}.{key}" if parent_key else key
+            items.update(dfs_flatten_json(value, new_key))
+    elif isinstance(data, list):
+        for index, value in enumerate(data):
+            new_key = f"{parent_key}.{index}" if parent_key else index
+            items.update(dfs_flatten_json(value, new_key))
+    else:
+        items[parent_key] = data
+    return items
 
 
 
 
+print("\n----- bfs -----")
 output = bfs_flatten_json(data)
 print(output)
 
-print("-----------------------------------------")
 
+print("\n----- dfs iter -----")
+output = dfsi_flatten_json(data)
+print(output)
+
+
+print("\n----- dfs -----")
 output = dfs_flatten_json(data)
 print(output)
+
