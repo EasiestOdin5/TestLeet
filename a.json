@@ -1,0 +1,43 @@
+{
+  "user": {
+    "id": 123,
+    "name": "Alice",
+    "contact": {
+      "email": "alice@example.com",
+      "phones": ["123-456-7890", "987-654-3210"]
+    },
+    "preferences": {
+      "notifications": {
+        "email": true,
+        "sms": false
+      },
+      "languages": ["English", "Spanish"]
+    }
+  },
+  "account": {
+    "created": "2021-01-01",
+    "active": true,
+    "balance": {
+      "currency": "USD",
+      "amount": 1050.75
+    }
+  },
+  "history": [
+    {
+      "date": "2022-05-01",
+      "action": "login"
+    },
+    {
+      "date": "2022-06-01",
+      "action": "purchase",
+      "details": {
+        "item": "Laptop",
+        "price": 1200,
+        "shipping": {
+          "method": "express",
+          "cost": 25.0
+        }
+      }
+    }
+  ]
+}
